@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>属性绑定和属性简写</title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{ 
+					url:'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png',
+					w:'200px',
+					h:'200px'
+				},
+				methods:{ 
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">	
+		<!-- 图片能显示，但在控制台中查看会报错：404 (File not found) -->
+		<!-- <img src="{{url}}" alt=""> -->
+	
+		<!-- 可以直接访问vue中的数据，不会报错，推荐 -->
+		<!-- <img v-bind:src="url" alt=""> -->
+
+		<img :src="url" alt="" :width="w" :heigh="h">
+
+
+
+
+	</div>
+</body>
+</html>

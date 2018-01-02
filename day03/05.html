@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>父子组件</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<my-hello></my-hello>
+	</div>
+	
+	<template id="hello">
+		<!-- 子组件只能在父组件内部使用 -->
+		<h3>我是hello父组件</h3>
+		<h3>访问自己的数据：{{msg}},{{name}},{{age}}</h3>
+		<h3>访问子组件中的数据：{{sex}},{{height}}</h3>
+		<hr>
+	
+		<my-world :message="msg" :name="name" :age="age" @e-world="get"></my-world>
+	</template>
+	<template id="world">
+		<h3>我是world子组件</h3>
+		<h3>访问父组件中的数据：{{message}},{{name}},{{age}}</h3>
+		<h3>访问自己的数据：{{sex}},{{height}}</h3>
+		<button @click="send">将子组件中的数据向上传递给父组件</button>
+	</template>
+
+	<script>
+		var vm=new Vue({ //根组件Root
+			el:'#itany',
+			components:{
+				'my-hello':{ //父组件
+					data(){ //ES6新增的属性简洁写法
+						return {
+							msg:'网博',
+							name:'tom',
+							age:23,
+							sex:'',
+							height:0
+						}
+					},
+					template:'#hello',
+					methods:{
+						get(sex,height){
+							this.sex=sex;
+							this.height=height;
+						}
+					},
+					components:{ //子组件
+						'my-world':{
+							data(){
+								return {
+									sex:'male',
+									height:180.5
+								}
+							},
+							// props:['message','name','age'],
+							props:{
+								'message':String,
+								'name':String,
+								'age':Number
+							},
+							template:'#world',
+							methods:{
+								send(){
+									// console.log(this); //此处this表示当前子组件实例
+									this.$emit('e-world',this.sex,this.height); //触发执行当前实例上的事件
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>

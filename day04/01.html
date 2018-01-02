@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组件模板的变化</title>
+	<script src="js/vue.js"></script>
+	<!-- <script src="js/vue1.0.js"></script> -->
+</head>
+<body>
+	<div id="itany">
+		{{msg}}
+		<my-hello></my-hello>
+	</div>
+
+	<template id="hello">
+		<!-- 在vue2.0中，template必须有且只有一个根元素 -->
+		<!-- <div>
+			<h3>呵呵</h3>
+			<h4>哈哈</h4>
+		</div> -->
+		呵呵
+	</template>
+
+	<script>
+		new Vue({
+			data:{
+				msg:'welcome to itany'
+			},
+			components:{
+				'my-hello':{
+					template:'#hello'
+				}
+			}
+		}).$mount('#itany');
+	</script>
+</body>
+</html>

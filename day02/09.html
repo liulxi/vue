@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>过渡(动画)</title>
+	<link rel="stylesheet" href="css/animate.css">
+	<style>
+		#mydiv{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+		}
+		/* 动画 */
+		.fade-transition{
+			transition:all 1s ease;
+		}
+		/* 进入时动画 */
+		.fade-enter{
+			opacity: 0;
+			transform: rotate(360deg);
+		}
+		/* 离开时动画 */
+		.fade-leave{
+			opacity: 0;
+			transform: translateX(200px);
+		}
+
+		#itany{
+			width: 500px;
+			margin:0 auto;
+		}
+	</style>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			new Vue({
+				el:'#itany',
+				data:{
+					flag:true
+				},
+				transitions:{ //定义所有动画名称
+					hello:{
+						enterClass:'zoomInLeft',
+						leaveClass:'zoomOutRight'
+					}
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">
+		<button @click="flag=!flag">点我</button>
+		<br>
+		<!-- <div id="mydiv" v-show="flag" transition="fade"></div> -->
+
+		<div id="mydiv" v-show="flag" transition="hello" class="animated"></div>
+	</div>
+</body>
+</html>

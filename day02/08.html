@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>监听数据的变化$watch</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<input type="text" v-model="name">
+		<h3>{{name}}</h3>
+		<hr>
+
+		<input type="text" v-model="user.age">
+		<h3>{{user.age}}</h3>
+
+	</div>
+	<script>
+		var vm=new Vue({
+			data:{
+				name:'tom',
+				user:{id:1001,name:'alice',age:25}
+			}
+		}).$mount('#itany');
+
+		//监视数据的变化 
+		vm.$watch('name',function(newValue,oldValue){
+			console.log('数据name被修改了');
+			console.log(newValue);
+			console.log(oldValue);
+		});
+		vm.$watch('user',function(newValue,oldValue){
+			console.log('数据user被修改了');
+		},{deep:true}); //深度监视，当对象中的属性发生改时也会监视
+	</script>
+</body>
+</html>

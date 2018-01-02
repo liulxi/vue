@@ -1,0 +1,17 @@
+{
+  "name": "day01",
+  "version": "1.0.0",
+  "description": "### 1. Vue.js是什么 Vue.js也称为vue，读音/vju:/，类似 view，错误读音v-u-e 版本 v1.x v2.x",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^1.11.1",
+    "vue": "^1.0.28"
+  }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用指令：v-show</title>
+	<style>
+		.wbs{
+			width: 100px;
+			height: 100px;
+			background-color: #ccc;
+		}
+	</style>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{ 
+					flag:true,
+				},
+				methods:{ 
+					change:function(){
+						this.flag=!this.flag;
+					}
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">	
+		<!-- <button v-on:click="flag=false">隐藏</button> -->
+		<!-- <button v-on:click="change()">变</button> -->
+		<button v-on:click="flag=!flag">变</button>
+		<br>
+
+		<div class="wbs" v-show="flag"></div>
+	</div>
+</body>
+</html>

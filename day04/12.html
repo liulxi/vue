@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习：多元素动画</title>
+	<link rel="stylesheet" href="css/animate.css">
+	<style>
+		.router-link-active{
+			font-size: 20px;
+			color:#ff7300;
+			text-decoration: none;
+		}
+	</style>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<div>
+			<!-- 使用router-link组件来导航，to属性可以指定链接，<router-link>组件默认会被渲染成一个<a>标签 -->
+			<router-link to="/home">主页</router-link>
+			<router-link to="/user">用户</router-link>
+		</div>
+		<div>
+			<transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+				<router-view></router-view> <!-- 用来显示路由内容	 -->
+			</transition>	
+		</div>
+		<hr>
+		
+		<button @click="push">添加路由</button>
+		<button @click="replace">替换路由</button>
+	</div>
+	
+	<template id="user">
+		<div>
+			<h3>用户信息</h3>
+			<ul>
+				<li><router-link to="/user/login/tom/123">用户登陆</router-link></li>
+				<li><router-link to="/user/regist?name=alice&pwd=456">用户注册</router-link></li>
+			</ul>
+			<div>
+				<transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+					<router-view></router-view>
+				</transition>
+			</div>
+		</div>
+	</template>
+	
+	<script>
+		//1.定义组件
+		var Home={
+			template:'<h3>这是主页</h3>'
+		};
+		var User={
+			template:'#user'
+		}
+		var Login={
+			template:'<h4>用户登陆中。。。。获取参数：{{$route.params}}</h4>'
+		}
+		var Regist={
+			template:'<h4>用户注册中。。。。获取参数：{{$route.query}}</h4>'
+		}
+
+		//2.配置路由
+		const routes=[
+			{path:'/home',component:Home},
+			{
+				path:'/user',
+				component:User,
+				children:[
+					{
+						path:'login/:username/:password',
+						component:Login
+					},
+					{
+						path:'regist',
+						component:Regist
+					}
+				]
+			},
+			{path:'*',redirect:'/home'} //重定向
+		];
+
+		//3.创建路由实例
+		const router=new VueRouter({
+			routes //简写，相当于routes:routes
+		});
+
+		//4.创建根实例并将路由挂载到vue上
+		new Vue({
+			el:'#itany',
+			router, //注入路由，从而让整个应用都有路由功能
+			methods:{
+				push(){
+					router.push({path:'home'});
+				},
+				replace(){
+					router.replace({path:'user'}); //没有历史记录
+				}
+			}
+		});
+	</script>
+</body>
+</html>

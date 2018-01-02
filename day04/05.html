@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>父子组件间的通信</title>
+	<script src="js/vue.js"></script>
+	<!-- // <script src="js/vue1.0.js"></script> -->
+</head>
+<body>
+	<div id="itany">
+		<!-- <h2>父组件：{{name}}</h2> -->
+		<h2>父组件：{{user.name}}</h2>
+		<hr>
+		<!-- <my-hello :username.sync="name"></my-hello> -->
+		<my-hello :user="user"></my-hello>
+	</div>
+
+	<template id="hello">
+		<div>
+			<!-- <h3>子组件:{{username}}</h3> -->
+			<!-- <h3>子组件:{{msg}}</h3> -->
+			<h3>子组件：{{user.name}}</h3>
+			<button @click="change">修改数据</button>
+		</div>
+	</template>
+
+	<script>
+		new Vue({ //父组件
+			el:'#itany',
+			data:{
+				name:'tom',
+				user:{
+					name:'jack',
+					age:24
+				}
+			},
+			components:{
+				'my-hello':{
+					template:'#hello',
+					// props:['username'],
+					props:['user'],
+					/*data(){
+						return {
+							msg:this.username //将数据存入另一个变量中
+						}
+					},*/
+					methods:{
+						change(){
+							// this.username='alice';
+							// this.msg='alice';
+							this.user.name='alice'
+						}
+					}
+				}
+			}
+		});
+
+
+	</script>
+</body>
+</html>

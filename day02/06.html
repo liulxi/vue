@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义指令</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<h3 v-hello>welcome to itany</h3>
+
+		<h3 v-color="'blue'">南京网博</h3>
+
+		<p v-color="g">wbs16112</p>
+		
+		<h3 v-world:username="name">你好，世界</h3>	
+
+		<my-dir>hello world</my-dir>
+	</div>
+	<script>
+		/**
+		 * 自定义指令
+		 * 注：使用指令时必须在指令名称前添加前缀v-，即v-指令名称
+		 */
+		Vue.directive('hello',function(){
+			/**
+			 * this指向当前的指令对象，包含多个属性
+			 */
+			/*console.log(this);
+			console.log(this.name);	//指令名称	
+			console.log(this.args); //指令的参数
+			console.log(this.el); //指令绑定的元素
+			console.log(this.vm); //该指令所在Vue实例
+			console.log(this.expression); //指令的表达式，不包括参数和过滤器*/
+			this.el.style.color='red';
+			// this.vm.$el
+		});
+		Vue.directive('color',function(c){
+			this.el.style.background=c;
+		});
+		 Vue.directive('world',{
+	        bind:function(){
+	            alert('在指令第一次绑定到元素上时调用，只调用一次');
+	        },
+	        update:function(newValue,oldValue){
+	            alert('每当绑定值变化时都会调用：'+newValue+','+oldValue);
+	            // this.el.innerHTML=this.vm.name;
+	            this.el.innerHTML=newValue;
+
+	        },
+	        unbind:function(){
+	            alert('在指令从元素上解绑时调用，只调用一次');
+	        }
+	    }); 	
+
+
+		//元素指令
+		Vue.elementDirective('my-dir',{
+			bind:function(){
+				this.el.style.color='#ff7300';
+			}
+		});
+
+		var v=new Vue({
+			data:{
+				g:'green',
+				name:'tom'
+			}
+		}).$mount('#itany');
+	</script>
+</body>
+</html>

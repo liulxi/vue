@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习：多元素动画</title>
+	<link rel="stylesheet" href="css/animate.css">
+	<style>
+		p{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			margin:20px auto;
+		}
+	</style>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<input type="text" v-model="name">
+
+		<transition-group enter-active-class="zoomInLeft" leave-active-class="zoomOutRight">
+			<p v-show="flag" v-for="(v,k) in arr2" :key="k" class="animated">{{v}}</p>
+		</transition-group>
+	</div>
+
+	
+	<script>
+		new Vue({
+			el:'#itany',
+			data:{
+				flag:true,
+				arr:['tom','jack','alice','mike','alex'],
+				name:''
+			},
+			computed:{
+				arr2:function(){
+					var temp=[];
+					this.arr.forEach(val => {
+						if(val.includes(this.name)){
+							temp.push(val);
+						}
+					});
+					return temp;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

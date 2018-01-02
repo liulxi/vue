@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue生命周期</title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{
+					msg:'welcome to itany'
+				},
+				methods:{
+					destroy:function(){
+						this.$destroy(); //调用该方法销毁当前实例
+					}
+				},
+				init:function(){
+					alert('初始化');
+				},
+				created:function(){
+					alert('实例已经创建');
+				},
+				beforeCompile:function(){
+					alert('编译之前');
+				},
+				compiled:function(){
+					alert('编译之后');
+				},
+				ready:function(){
+					alert('准备就绪，插入到文档中');
+				},
+				beforeDestroy:function(){
+					alert('销毁之前');
+				},
+				destroyed:function(){
+					alert('销毁之后');
+				}	
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">
+		{{msg}}
+		<br>
+		<button @click="destroy">销毁vue实例</button>	
+	</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slot的使用</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<!-- <my-hello>wbs16112</my-hello> -->
+		<my-hello>
+			<ul slot="s1">
+				<li>aaa</li>
+				<li>bbb</li>
+				<li>ccc</li>
+			</ul>
+			<ul slot="s2">
+				<li>111</li>
+				<li>222</li>
+				<li>333</li>
+			</ul>
+		</my-hello>
+	</div>
+	
+	<template id="hello">
+		<slot name="s2"></slot>
+		<h3>welcome to itany</h3>
+		<!-- <slot>如果组件中没有原内容，则显示该内容</slot> -->
+		<slot name="s1"></slot>
+	</template>
+
+	<script>
+		var vm=new Vue({
+			el:'#itany',
+			components:{
+				'my-hello':{
+					template:'#hello'
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>
