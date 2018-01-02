@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习：自定义指令</title>
+	<style>
+		#itany div{
+			width: 100px;
+			height: 100px;
+			position: absolute;
+		}
+		.hello{
+			background-color: red;
+			left: 0;
+			top: 0;
+		}
+		.world{
+			background-color: blue;
+			right:0;
+			top: 0;
+		}
+	</style>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<div class="hello" v-drag>div1</div>
+		<div class="world" v-drag>div2</div>
+	</div>
+	<script>
+		Vue.directive('drag',function(){
+			var oDiv=this.el;
+			oDiv.onmousedown=function(e){
+				//获取鼠标点击处分别与div左边和上边的距离:鼠标位置-div位置
+				var disX=e.clientX-oDiv.offsetLeft;
+				var disY=e.clientY-oDiv.offsetTop;
+
+				//包含onmousedown里面，表示点击后才移动
+				document.onmousemove=function(e){
+					//获取移动后div的位置：鼠标位置-disX/disY
+					var l=e.clientX-disX;
+					var t=e.clientY-disY;
+					oDiv.style.left=l+'px';
+					oDiv.style.top=t+'px';
+				};
+
+				//清除移动，鼠标抬起
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onmouseup=null;
+				}
+
+			};
+
+		});
+
+		var v=new Vue({
+			data:{
+				
+			}
+		}).$mount('#itany');
+	</script>
+</body>
+</html>

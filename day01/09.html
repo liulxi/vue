@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘事件</title>
+	<script src="js/vue.js"></script>
+	<script>
+
+		//自定义键盘事件
+		Vue.directive('on').keyCodes.ctrl=17;  
+
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{ 
+					
+				},
+				methods:{ 
+					show:function(e){
+						// console.log(111);
+						// console.log(e.keyCode); //按钮的code值，ASCII码
+
+						//判断是否按下回车
+						/*if(e.keyCode==13){
+							console.log('您按下回车');
+						}*/
+						console.log(111);
+						
+					}	
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">	
+		<!-- 用户名：<input type="text" @keydown="show($event)"> -->
+		
+		<!-- 简化按键的判断 -->
+		<!-- 用户名：<input type="text" @keydown.13="show($event)"> -->
+		<!-- 用户名：<input type="text" @keydown.enter="show($event)"> -->
+		<!-- 用户名：<input type="text" @keydown.delete="show($event)"> -->
+		<!-- 用户名：<input type="text" @keydown.x="show($event)"> -->
+		用户名：<input type="text" @keydown.ctrl="show($event)">
+	</div>
+</body>
+</html>

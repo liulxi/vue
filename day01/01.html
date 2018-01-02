@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello World</title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			//创建一个Vue实例
+			new Vue({
+				el:'#itany',  //指定关联的元素
+				data:{ //存储数据
+					msg:'Hello World'
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">
+		{{msg}} <!--  两对大括号{{}}称为模板，用来进行数据绑定，显示在页面中 -->
+	</div>
+	<h3>
+		{{msg}}
+	</h3>
+</body>
+</html>

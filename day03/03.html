@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>引用模板</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<!-- 创建两个my-hello组件实例，两者间是独立的，只是共享相同的代码而已 -->
+		<my-hello></my-hello>
+		<my-hello></my-hello>
+	</div>
+
+	<!-- 使用<template>标签定义模板内容，指定id -->
+	<template id="wbs">
+		<h3>{{msg}}</h3>
+		<ul>
+			<li v-for="value in arr">
+				{{value}}
+			</li>
+		</ul>
+	</template>
+
+	<script>
+		var vm=new Vue({ 
+			el:'#itany',
+			data:{
+				name:'tom'
+			},
+			components:{
+				'my-hello':{
+					template:'#wbs', //引用模板
+					data:function(){
+						return {
+							msg:'欢迎来到南京网博',
+							arr:['tom','jack','mike']
+						}
+					}
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>

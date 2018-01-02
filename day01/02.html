@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用指令：v-model</title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			new Vue({
+				// el:'#itany', //选择器都可以 
+				// el:'.itany',
+				el:'body',
+				data:{
+					// name:'' //即使没有值，也不要省略，控制台会报错
+					name:'tom',
+					age:21,
+					flag:true,
+					arr:[12,4,2,43],
+					user:{id:9527,name:'唐伯虎',sex:'男'}
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<!-- <div id="itany"> -->
+	<!-- <div class="itany"> -->
+	<div>	
+		用户名：<input type="text" v-model="name">
+		<br>
+		{{name}}
+		<hr>
+
+		{{age}} <br>
+		{{flag}} <br>	
+		{{arr}} <br>
+		{{user}} <br>
+	</div>
+</body>
+</html>

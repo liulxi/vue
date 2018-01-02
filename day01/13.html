@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>内置过滤器</title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{ 
+					user:{name:'唐伯虎',age:25},
+					arr:[1,2,3,4,5,6,7,8],
+					names:['tom','jack','mike','alice','alex'],
+					users:[
+						{id:1001,username:'tom',password:'abc'},
+						{id:1002,username:'jack',password:'aaa'},
+						{id:1003,username:'alice',password:'bbb'}
+					]
+				},
+				methods:{ 
+					show:function(){
+						alert(111);
+					}
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">	
+		{{12.345678|currency}}
+		<br>
+		{{12.345678|currency '😀'}} <!-- 传参形式，以空格隔开 -->
+		<hr>
+		
+		{{'Hello World'|uppercase}}
+		<br>
+		{{'Hello World'|lowercase}}
+		<br>
+		{{'HELLO WORLD' | lowercase | capitalize}} <!-- 同时使用多个过滤器 -->
+		<hr>
+		
+		<!-- json过滤器，将json对象转换为字符串形式显示 -->
+		{{user | json}}
+		<br>
+		
+		<!-- debounce 延迟执行过滤器，需要配置事件使用，默认为300ms -->
+		<button @click="show() | debounce 3000">点我</button>
+		<hr>
+
+
+		<!-- limitBy 限制过滤器，需要在循环中使用，第一个参数表示获取的数量，第二个参数表示从索引为几的位置开始获取 -->
+		<ul>
+			<!-- <li v-for="value in arr | limitBy 2"> -->
+			<!-- <li v-for="value in arr | limitBy 2 4"> -->
+			<li v-for="value in arr | limitBy 2 arr.length-2">
+				{{value}}
+			</li>
+		</ul>
+		<hr>
+
+		<!-- filterBy 过滤数据，需要在循环中使用，第一个参数表示搜索字符串，第二个参数指定要过滤匹配的属性 -->
+		<ul>
+			<li v-for="value in names | filterBy 'a'">
+				{{value}}
+			</li>
+		</ul>
+		<ul>
+			<li v-for="user in users | filterBy 'a' in 'username'">
+				{{user.username}},{{user.password}}	
+			</li>
+		</ul>
+		<hr>
+
+		<!-- orderBy 排序，需要在循环中使用，第一个参数表示要排序的字段，第二个参数>=0表示升序，<0表示降序，默认为升序 -->
+		<ul>
+			<li v-for="user in users | orderBy 'password' -6">
+				{{user.username}},{{user.password}}	
+			</li>
+		</ul>
+
+
+	</div>
+</body>
+</html>

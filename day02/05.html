@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue实例的属性和方法</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		{{msg}}
+	</div>
+	<script>
+		/*var vm=new Vue({
+			// el:'#itany',
+			data:{
+				msg:'welcome to itany',
+				wbs:'wbs16112'
+			},
+			age:24, //自定义属性
+			sex:'male',
+			show:function(){
+				console.log('show方法');
+			}
+		});*/
+
+		//vm.属性名  直接获取属性
+		// console.log(vm.msg);
+		// console.log(vm.wbs);
+
+		//vm.$el 获取元素
+		// console.log(vm.$el);
+		// vm.$el.style.color='red';
+
+		//vm.$data 获取数据对象data
+		// console.log(vm.$data);
+		// console.log(vm.$data.wbs);
+
+		//vm.$options 获取自定义属性
+		/*console.log(vm.$options);	
+		console.log(vm.$options.age);	
+		console.log(vm.$options.sex);	
+		console.log(vm.$options.show());*/
+
+		//vm.$mount() 手动挂载vue程序
+		// vm.$mount('#itany');
+		var vm=new Vue({
+			data:{
+				msg:'welcome to nanjing'
+			}
+		}).$mount('#itany');
+
+		//vm.$destroy 销毁实例
+		// vm.$destroy();
+
+		//vm.$log() 查看当前数据的状态
+		// console.log(vm.$log());
+
+		console.log(vm);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习：多元素动画</title>
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<div>
+			<!-- 使用router-link组件来导航，to属性可以指定链接，<router-link>组件默认会被渲染成一个<a>标签 -->
+			<router-link to="/home">主页</router-link>
+			<router-link to="/news">新闻</router-link>
+		</div>
+		<div>
+			<router-view></router-view> <!-- 用来显示路由内容	 -->
+		</div>
+	</div>
+
+	
+	<script>
+		//1.定义组件
+		var Home={
+			template:'<h3>这是主页</h3>'
+		};
+		var News={
+			template:'<h3>这是新闻</h3>'
+		}
+
+		//2.配置路由
+		const routes=[
+			{path:'/home',component:Home},
+			{path:'/news',component:News},
+			{path:'*',redirect:'/home'} //重定向
+		];
+
+		//3.创建路由实例
+		const router=new VueRouter({
+			routes //简写，相当于routes:routes
+		});
+
+		//4.创建根实例并将路由挂载到vue上
+		new Vue({
+			el:'#itany',
+			router //注入路由，从而让整个应用都有路由功能
+		});
+	</script>
+</body>
+</html>

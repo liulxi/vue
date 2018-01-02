@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>class和style属性</title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{ 
+					bb:'aa',
+					dd:'cc',
+					flag:true,
+
+					xx:{color:'blue',fontSize:'30px'}, //复合样式，采用驼峰式命名法
+					yy:{backgroundColor:'yellow'}
+				},
+				methods:{ 
+				}
+			});
+		};
+	</script>
+	<style>
+		.aa{
+			color:red;
+			font-size: 20px;
+		}
+		.cc{
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="itany">	
+		<!-- 
+			class属性
+		 -->
+		<!-- <p class="aa">南京网博</p> -->  <!-- 可以，普通css方式 -->
+
+		<!-- <p :class="aa">南京网博</p>  --> <!-- 不可以，不能直接访问css样式 -->
+		
+		<!-- 用法1：变量形式 -->
+		<!-- <p :class="bb">南京网博</p>  -->
+		
+		<!-- 用法2：数组形式，可以同时引用多个 -->
+		<!-- <p :class="[bb,dd]">南京网博</p>  -->
+		
+		<!-- 用法3：json形式，可以直接访问css样式，flag中vue中的数据，true表示应用该样式，false表示不应用 -->
+		<!-- <p :class="{aa:true,cc:flag}">南京网博</p>  -->
+
+		<!-- 
+			style属性
+		 -->
+		 <p :style="[xx,yy]">南京网博</p> 
+	
+
+
+
+
+
+
+	</div>
+</body>
+</html>

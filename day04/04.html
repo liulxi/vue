@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>过滤器</title>
+	<script src="js/vue.js"></script>
+	<!-- <script src="js/vue1.0.js"></script> -->
+</head>
+<body>
+	<div id="itany">
+		<!-- {{ num | currency}} -->
+		<br>
+		<!-- {{user}} -->
+		<br>
+
+		{{money | number(2)}}
+	</div>
+
+	<script>
+		//自定义过滤器
+		Vue.filter('number',function(data,n){
+			return data.toFixed(n);
+		});
+
+
+		new Vue({
+			data:{
+				num:123456,
+				user:{id:9527,name:'唐伯虎',age:20},
+				money:12.345
+			}
+		}).$mount('#itany');
+
+
+	</script>
+</body>
+</html>

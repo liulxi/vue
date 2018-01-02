@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>发送AJAX请求</title>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script>
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				methods:{
+					send:function(){
+						this.$http({
+							method:'get',
+							url:'user.json'
+							// data:'name=alice'
+						}).then(function(resp){
+							/*for(var index in resp){
+								console.log(index+'='+resp[index]);
+							}*/
+							console.log(resp.data);
+						},function(resp){
+							console.log('请求失败：'+resp.status+','+resp.statusText);
+						});
+					},
+					sendParamGet:function(){
+						this.$http.get('server.php',{
+							name:'alice',
+							age:21
+						}).then(function(resp){
+							console.log(resp.data);
+						},function(resp){
+							console.log('请求失败：'+resp.status+','+resp.statusText);
+						});
+					},
+					sendParamPost:function(){
+						this.$http.post('server.php',{
+							name:'zhangsan',
+							age:22
+						},{
+							emulateJSON:true //post的data默认不是form data提交的，所以需要添加该选项
+						}).then(function(resp){
+							console.log(resp.data);
+						},function(resp){
+							console.log('请求失败：'+resp.status+','+resp.statusText);
+						});
+					},
+					sendJSONP:function(){
+						//https://sug.so.360.cn/suggest?callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&fields=word,obdata&word=a
+						this.$http.jsonp('https://sug.so.360.cn/suggest',{
+							word:'a'
+						}).then(function(resp){
+							console.log(resp.data.s);
+						},function(resp){
+							console.log('请求失败：'+resp.status+','+resp.statusText);
+						});
+					},
+					sendJSONP2:function(){
+						//https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ab&json=1&p=3&sid=1437_19033_21084_22581&req=2&csor=2&pwd=a&cb=jQuery110207936406887710339_1493865679759&_=1493865679765
+						this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+							wd:'a'
+						},{
+							jsonp:'cb' //百度使用的jsonp参数名为cb，所以需要修改
+						}).then(function(resp){
+							console.log(resp.data.s);
+						},function(resp){
+							console.log('请求失败：'+resp.status+','+resp.statusText);
+						});
+					}
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">
+		<button @click="send()">发送AJAX请求</button>
+
+		<button @click="sendParamGet()">GET方式发送带参的AJAX请求</button>
+
+		<button @click="sendParamPost()">POST方式发送带参的AJAX请求</button>
+		<hr>
+
+		<button @click="sendJSONP()">向360搜索发送JSONP请求</button>
+
+		<button @click="sendJSONP2()">向百度搜索发送JSONP请求</button>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用指令：v-for</title>
+	<script src="js/vue.js"></script>
+	<script>
+		window.onload=function(){
+			new Vue({
+				el:'body',
+				data:{
+					arr:[12,43,2,42,1,4],
+					user:{id:9527,name:'唐伯虎',sex:'男'},
+					arr2:[12,43,2,42,1,4,12],
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div>	
+		<ul>
+			<!-- <li v-for="value in arr">{{value}}</li> -->
+			<!-- <li v-for="value in user">{{value}}</li> -->
+			<!-- <li v-for="(k,v) in arr">{{k}}={{v}}</li> -->
+			<!-- <li v-for="(k,v) in user">{{k}}={{v}}</li> -->
+
+			<!-- <li v-for="(k,v) in user">
+				{{k}},{{v}},{{$index}},{{$key}}
+			</li> -->
+
+			<!-- 遍历带有重复元素的集合时需要使用track-by指定唯一，并可提升效率 -->
+			<li v-for="(k,v) in arr2" track-by="$index">
+				{{k}}={{v}}	
+			</li>
+
+
+
+		</ul>
+	</div>
+</body>
+</html>

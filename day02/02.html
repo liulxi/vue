@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习：百度搜索提示</title>
+	<style>
+		.gray{
+			background-color: #ccc;
+		}
+	</style>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script>
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{
+					keyword:'',
+					myData:[],
+					now:-1 //当前选中项的索引
+				},
+				methods:{
+					getData:function(e){
+						//如果按方向键上或下，则不发送请求
+						if(e.keyCode==38||e.keyCode==40) return;
+
+						//如果按回车，则在新窗口中搜索
+						if(e.keyCode==13){
+							window.open('https://www.baidu.com/s?wd='+this.keyword);
+							this.keyword='';
+						}
+
+						//发送JSONP请求
+						this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+							wd:this.keyword
+						},{
+							jsonp:'cb'
+						}).then(function(resp){
+							this.myData=resp.data.s;
+						});
+					},
+					changeDown:function(){
+						this.now++;
+						this.keyword=this.myData[this.now];
+						if(this.now==this.myData.length){
+							this.now=-1;
+						}
+					},
+					changeUp:function(){
+						this.now--;
+						this.keyword=this.myData[this.now];
+						if(this.now==-2){
+							this.now=this.myData.length-1;
+						}
+					}
+				}	
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">
+		<!-- 注意：按方向键上时，光标默认会切换到文本框的最前面，需要阻止该默认行为 -->
+		<input type="text" v-model="keyword" @keyup="getData($event)" @keydown.down="changeDown()" @keydown.up.prevent="changeUp()">
+		<ul>
+			<li v-for="value in myData" :class="{gray:$index==now}">
+				{{value}}
+			</li>
+		</ul>
+
+	</div>
+</body>
+</html>

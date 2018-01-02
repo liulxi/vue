@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全局组件和局部组件</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<my-hello></my-hello>
+		<my-world></my-world>
+	</div>
+
+	<script>
+		/**
+		 * 全局组件：可以在所有vue上下文中使用
+		 */
+		Vue.component('my-hello',{
+			template:'<h3 @click="change">{{msg}}</h3>',
+			data:function(){ //在组件中存储数据，必须以函数形式，函数返回一个对象
+				return {
+					msg:'welcome to itany'
+				};
+			},
+			methods:{ //存储方法
+				change:function(){
+					this.msg='hahahaha';
+				}
+			}
+		});
+
+		/**
+		 * 局部组件，只能在特定的Vue上下文中使用
+		 */
+		var vm=new Vue({ 
+			el:'#itany',
+			data:{
+				name:'tom'
+			},
+			components:{ //局部组件
+				'my-world':{
+					template:'<h4 @click="change">{{msg}}</h4>',
+					data:function(){
+						return {
+							msg:'欢迎来到南京网博'
+						}
+					},
+					methods:{
+						change:function(){
+							this.msg='哈哈哈哈';
+						}
+					}
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>

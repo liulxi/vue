@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义过滤器</title>
+	<script src="js/vue.js"></script>
+	<script>
+		/**
+		 * 自定义过滤器
+		 */
+		//为个位数补0
+		Vue.filter('addZero',function(data){
+			// console.log(data);
+			return data<10?'0'+data:data;
+		});
+		//保留指定的小数位，四舍五入
+		Vue.filter('number',function(data,n){
+			return data.toFixed(n); //课后作业：自己实现toFixed()的功能
+		});
+		//日期处理过滤器，Angular中内置date过滤器，而vue中没有
+		Vue.filter('date',function(data){
+			var d=new Date(data);
+			return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+		});
+		//双向过滤器
+		Vue.filter('currencyDisplay',{
+			read:function(data){ //模型--->视图
+				// console.log(111);	
+				return '$'+data.toFixed(2);
+			},
+			write:function(newValue,oldValue){ //视图--->模型
+				// console.log(222);
+				// console.log(oldValue);
+				// console.log(newValue);
+				return +newValue.replace(/[^\d.]/g,'');
+			}
+		});
+
+		window.onload=function(){
+			var vm=new Vue({
+				el:'#itany',
+				data:{ 
+					currentTime:Date.now(),
+					money:12.345
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	<div id="itany">	
+		<h3>{{28 | addZero}}</h3>
+
+		<h3>{{12.345678 | number 2}}</h3>
+
+		<h3>{{currentTime | date}}</h3>
+		<hr>
+		
+		<!-- 双向过滤器 -->
+		<input type="text" v-model="money | currencyDisplay">
+		<h3>{{money | currencyDisplay}}</h3>
+		<h3>{{money}}</h3>
+
+	</div>
+</body>
+</html>

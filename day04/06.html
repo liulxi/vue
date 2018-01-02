@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>非父子组件间的通信</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<my-a></my-a>
+		<my-b></my-b>
+		<my-c></my-c>
+	</div>
+
+	<template id="a">
+		<div>
+			<h3>A组件：{{name}}</h3>
+			<button @click="send">将数据发送给C组件</button>
+		</div>
+	</template>
+	<template id="b">
+		<div>
+			<h3>B组件：{{age}}</h3>
+			<button @click="send">将数据发送给C组件</button>
+		</div>
+	</template>
+	<template id="c">
+		<div>
+			<h3>C组件：{{name}}，{{age}}</h3>
+		</div>
+	</template>
+	
+	<script>
+		//定义一个空的Vue实例
+		var Event=new Vue();
+
+		var A={
+			template:'#a',
+			data(){
+				return {
+					name:'tom'
+				}
+			},
+			methods:{
+				send(){
+					//触发data-a事件，发送数据
+					Event.$emit('data-a',this.name);
+				}
+			}
+		};
+		var B={
+			template:'#b',
+			data(){
+				return {
+					age:23
+				}
+			},
+			methods:{
+				send(){
+					Event.$emit('data-b',this.age);
+				}
+			}
+		};
+		var C={
+			template:'#c',
+			data(){
+				return {
+					name:'',
+					age:''
+				}
+			},
+			mounted(){ //在模板编译完成后执行
+				//监听data-a事件，接收数据
+				// var _this=this;
+				Event.$on('data-a',function(name){
+					// _this.name=name;
+					// console.log(this);
+					this.name=name;
+				}.bind(this)); //监听中无法直接使用this，可以使用bind(this)将外部this绑定到函数中
+				//监听data-b事件
+				Event.$on('data-b',function(age){
+					this.age=age;
+				}.bind(this));
+			}
+		};
+
+		new Vue({
+			el:'#itany',
+			components:{
+				'my-a':A,
+				'my-b':B,
+				'my-c':C
+			}
+		});
+
+
+	</script>
+</body>
+</html>
